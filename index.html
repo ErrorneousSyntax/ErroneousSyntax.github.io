@@ -38,11 +38,23 @@
         </p>
     <div class="content">
         <h2>3D Visualization of 15 Clusters</h2>
-        <iframe src="plot_3d.html" width="100%" height="500" style="border:none;"></iframe>
         <p>
             To attempt to understand why dimentionality reduction to find clusters is important, 
             we shall start with a simple 3d graph with artificial clusters. (Note that it is easy
             to identify clusters in low Dimensionality as seen here, but is impossible beyond 4 dimensions.)
+        </p>
+        <iframe src="plot_3d.html" width="100%" height="500" style="border:none;"></iframe>
+        <p>
+            To simulate a very rudimentary dimentionality reduction, imagine the view of this
+            graph on your 2D screen is a repreesntation of the data in lower dimentions.
+            In any angle, there are overlapping clusters, and even more evidently, the "depth" distance
+            between clusters is not preserved in this manner. 
+        </p>
+        <p>
+            Thus, we need a more robust algorithm that embeds high-D data with as much accuracy
+            and faithfulness to the original topology of the data. We call this type of dimentionality 
+            reduction techniques manifold learning techniques. 
+    
         </p>
         <h2>2D t-SNE Visualization of 15 Clusters</h2>
         <iframe src="plot_2d.html" width="100%" height="500" style="border:none;"></iframe>
