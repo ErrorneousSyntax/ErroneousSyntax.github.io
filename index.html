@@ -30,7 +30,7 @@
     <div class="content">
         <h1>Dimensionality Reduction to identify patterns in the high-dimensionality data</h1>
         <p>
-            For those of you in DE1, taking the engineering mathematics module, I will hopefully explain how 
+            For those of you in DE1, taking the engineering mathematics module, I will explain how 
             the "abstract maths" you are learning now is applied very heavily even in rigorous recent research in 
             data science, hopefully fueling your interest in the subject. I will introduce an advanced topic called 
             dimentionality reduction, which can be vital as Design Engineers to identify patterns and 
@@ -49,6 +49,7 @@
             To attempt to understand why dimentionality reduction to find clusters is important, 
             we shall start with a simple 3d graph with artificial clusters. (Note that it is easy
             to identify clusters in low Dimensionality as seen here, but is impossible beyond 4 dimensions.)
+            *Hold and rotate the graph around to see the full data in 3D.
         </p>
         <iframe src="plot_3d.html" width="100%" height="500" style="border:none;"></iframe>
         <p>
@@ -69,6 +70,7 @@
         </p>
     </div>
     <div class="content">
+        <h2>2D t-SNE Visualization of 15 Clusters</h2>
         <p>
             A type of manifold learning techniques is called t-distributed Stochastic Neighbor Embedding.
             t-distributed since it uses the student's t-distribution with 1 degree of freedom (Cauchy distribution)
@@ -78,7 +80,6 @@
             low dimensions. Finally Neighbor embedding refers to the nature of t-SNE which embeds local "neighborhoods"
             of datapoints very faithfully into lower dimension graphs. We will explain each step in more detail further down this article.
         </p>
-        <h2>2D t-SNE Visualization of 15 Clusters</h2>
         <iframe src="plot_2d.html" width="100%" height="500" style="border:none;"></iframe>
 </body>
 
