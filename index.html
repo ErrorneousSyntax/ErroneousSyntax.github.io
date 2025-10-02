@@ -90,12 +90,24 @@
         <p>
             t-SNE, and all manifold learning techniques, are based on the assumption 
             that all high dimensional data, though daunting with its hundreds of dimensionalities, 
-            actually lie on a much lower dimension or manifold. A manifold can be imagined like a piece
-             of paper that has been bent and folded in many convoluted ways in space. 
+            actually lie on a much lower dimension or manifold. This simple sphere is an example of a manifold.
+        </p>
+        <iframe src="manifold.html" width="100%" height="500" style="border:none;"></iframe>
+        <p>
+            A manifold can be imagined like a shape in 3d space, 
+            that locally looks like euclidean space, but its global structure is more 
+            complicated. There are a few rules to this, which are vital to allowing for smooth,
+            uninterrupted connections between neighbor data points to be calculated, the most 
+            important of which is that there are no sharp corners or edges to the manifold geometry.
+        </p>
+            <iframe src="manifoldcomplicated.html" width="100%" height="500" style="border:none;"></iframe>
+        <p>
+            This means that even complicated shapes like this is still a manifold as the local geometry
+            when you zoom into the surface is still considered euclidean. In reality, the global geometry
+            of data in high dimentions become much more complicated, but its shape shall be assumed to
+            follow the rules of a manifold.
         </p>
 
-            <iframe src="manifold.html" width="100%" height="500" style="border:none;"></iframe>
-        </p>
     </div>
 </body>
 
