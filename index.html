@@ -30,8 +30,7 @@
     <div class="content">
         <h1>Dimensionality Reduction to identify patterns in the high-dimensionality data</h1>
         <p>
-            For those of you in DE1, taking the engineering mathematics module, I will explain how 
-            the "abstract maths" you are learning now is applied very heavily even in rigorous recent research in 
+            For those of you in DE1, taking the engineering mathematics module, I will explain how MVC and gradient descent methods you are learning now is applied very heavily even in rigorous recent research in 
             data science, hopefully fueling your interest in the subject. I will introduce an advanced topic called 
             dimentionality reduction, which can be vital as Design Engineers to identify patterns and 
             relationships in data to make accurate, informed decisions.
@@ -84,9 +83,12 @@
     </div>
     <div class="content">
         <h2>High level overview of how t-SNE works</h2>
+        
+
         <p>
             Before we dive into the maths behind this fascinating machine learning algorithm, we must first view a general overview of the process.
         </p>
+        <h3>Manifolds</h3>
         <p>
             t-SNE, and all manifold learning techniques, are based on the assumption 
             that all high dimensional data, though daunting with its hundreds of dimensionalities, 
@@ -95,7 +97,7 @@
         <iframe src="manifold.html" width="100%" height="500" style="border:none;"></iframe>
         <p>
             A manifold can be imagined like a shape in 3d space, 
-            that locally looks like euclidean space, but its global structure is more 
+            that locally looks like euclidean space (geometry of a flat surface), but its global structure is more 
             complicated. There are a few rules to this, which are vital to allowing for smooth,
             uninterrupted connections between neighbor data points to be calculated, the most 
             important of which is that there are no sharp corners or edges to the manifold geometry.
@@ -107,8 +109,43 @@
             of data in high dimentions become much more complicated, but its shape shall be assumed to
             follow the rules of a manifold.
         </p>
+        <h3>
+            Small, locally Euclidean neighborhoods, when stitched together, approximate the global geometry of the manifold.       
+        </h3>
+        <p>
+        t-SNE and similar algorithms work by analyzing the relationships between data points within small local neighborhoods. This is similar to breaking down handwritten digits into basic strokes and shapes, where the algorithm focuses on how each part relates to its nearby patterns. By preserving these local relationships, t-SNE creates a lower-dimensional representation that captures the overall structure of the data.
+        </p>
+        <h2>
+            The Mathematics of t-SNE
+        </h2>
+        <p>
+            Now that we understand manifolds, we can see how t-SNE uses neighborhood relationships to faithfully represent high dimentionality data in lower dimentional space. For this, t-SNE uses pairwise similarities as probabilistic models to represent "how likely a datapoint A is to choose datapoint B". By defining a similarity probability for every pair in high dimensions, it becomes much easier to apply mathematical computation.
+        </p>
+        <p>
+            Now we need a similar probabilistic model for our low-dimensional graph, which datapoints are initialized either randomly or using PCA (see Devanshi's work). Like we did with high dimensional data, similar probabilistic models are used to calculate a similarity probability for each pair in low-D (which at first will be completely different to what it should be in high-D).
+        </p>
+        <p>
+            Here is where gradient descent from your lectures in multivariate calculus comes into play. To make the two probabilities between datapoints in high-D similar to low-D, t-SNE uses a formula called the Kullback-Leiber Divergence (KL divergence), essentially comparing how different model A is to model B (Model A being the high-D pairwise similarities and model B being the same for low-D).
+        </p>
+        <h2>
+            Gradient Descent
+        </h2>
+        <p>
+            Adjusting the datapoints in low-D now becomes the next logical step to minimise the KL divergence, however calculating the absolute minimal value by moving every datapoint (which there may be millions) will be compuationally taxing O(N^2). Therefore, t-SNE uses a type of gradient descent called stochastic gradient descent.
+        </p>
+        <p>
+            The parameter being adjusted in each iteration is the position of each datapoint yi and yj in the low-dimensional space. Each point is “nudged” slightly in the direction that reduces the KL divergence: points that are too far from their high-dimensional neighbors are pulled closer, while points that are too close are pushed apart.
 
+            Over many iterations, these small adjustments gradually lead to a stable configuration where the low-dimensional distances reflect the high-dimensional neighborhood probabilities as faithfully as possible. The stochastic nature of the process allows t-SNE to handle large datasets efficiently while still uncovering the underlying manifold structure in a visually meaningful way.
+        </p>
+        <h2>
+            Watch this animation to see how this works in real time
+        </h2>
+        <iframe src="tsne_wine_animation.html" width="100%" height="500" style="border:none;"></iframe>
+
+    
     </div>
+
 </body>
 
 </html>
