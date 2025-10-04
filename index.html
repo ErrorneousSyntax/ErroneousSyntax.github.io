@@ -189,6 +189,119 @@
             Many thanks to Sam Cooper and Freddie Page for their supervision and advice on this project, and 
             Devanshi Kaura for her support throughout the UROP.
         </p>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>t-SNE Interactive Visualization (JS)</title>
+<script src="https://cdn.jsdelivr.net/npm/tsne-js@1.0.6/build/tsne.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+  body {
+    font-family: sans-serif;
+    background: #fafafa;
+    text-align: center;
+    margin: 20px;
+  }
+  #controls {
+    margin-bottom: 15px;
+  }
+  label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+<h2>t-SNE Interactive Visualization (runs entirely in your browser)</h2>
+
+<div id="controls">
+  <label>Perplexity: <span id="perpVal">30</span></label>
+  <input type="range" id="perplexity" min="5" max="50" value="30" step="1">
+  <label>Learning Rate: <span id="lrVal">100</span></label>
+  <input type="range" id="learningRate" min="10" max="500" value="100" step="10">
+  <button id="runBtn">Run t-SNE</button>
+</div>
+
+<div id="plot" style="width:90%;height:600px;margin:auto;"></div>
+
+<p style="font-size:0.9em;color:#555;">
+All computations happen client-side using <code>tsne-js</code>.<br>
+No server or Python required — works directly on GitHub Pages.
+</p>
+
+<script>
+// Simple synthetic dataset (3 clusters)
+const makeData = () => {
+  const data = [];
+  const labels = [];
+  const centers = [[3,3,3],[0,0,0],[-3,-3,3]];
+  for (let i=0;i<centers.length;i++) {
+    for (let j=0;j<50;j++) {
+      const p = centers[i].map(c => c + Math.random()*1.2 - 0.6);
+      data.push(p);
+      labels.push(i);
+    }
+  }
+  return {data, labels};
+};
+
+const {data, labels} = makeData();
+
+// Initialize plot
+Plotly.newPlot('plot', [{
+  x: [], y: [], mode: 'markers', marker:{size:8, color:labels, colorscale:'Viridis'}
+}], {
+  title:'t-SNE Embedding',
+  xaxis:{title:'Dim 1'},
+  yaxis:{title:'Dim 2'}
+});
+
+document.getElementById("runBtn").onclick = () => {
+  const perplexity = +document.getElementById("perplexity").value;
+  const lr = +document.getElementById("learningRate").value;
+  document.getElementById("perpVal").innerText = perplexity;
+  document.getElementById("lrVal").innerText = lr;
+
+  const tsne = new tsnejs.tSNE({
+    dim: 2,
+    perplexity: perplexity,
+    epsilon: lr,  // learning rate
+    exaggeration: 4.0
+  });
+
+  tsne.initDataRaw(data);
+
+  let iter = 0;
+  const totalIters = 400;
+
+  const step = () => {
+    tsne.step();
+    iter++;
+    if (iter % 5 === 0) {
+      const Y = tsne.getSolution();
+      const xs = Y.map(p => p[0]);
+      const ys = Y.map(p => p[1]);
+      Plotly.react('plot', [{
+        x: xs, y: ys,
+        mode:'markers',
+        marker:{size:8, color:labels, colorscale:'Viridis'}
+      }], {
+        title:`t-SNE Embedding — Iteration ${iter}`,
+        xaxis:{title:'Dim 1'},
+        yaxis:{title:'Dim 2'}
+      });
+    }
+    if (iter < totalIters) requestAnimationFrame(step);
+  };
+
+  step();
+};
+</script>
+</body>
+</html>
+
     </div>
 
 </body>
