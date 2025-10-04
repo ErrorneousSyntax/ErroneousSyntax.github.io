@@ -121,10 +121,10 @@
     <div class="content">
         <h2>The Mathematics of <strong>t-SNE</strong></h2>
         <p>
-            <strong>t-SNE</strong> uses pairwise similarities as <strong>probabilistic models</strong> to represent "how likely a datapoint A is to choose datapoint B". By defining similarity probabilities in high dimensions, it becomes easier to apply <strong>mathematical computation</strong>.
+            <strong>t-SNE</strong> uses pairwise similarities as <strong>probabilistic models</strong> to represent "how likely a datapoint A is to choose datapoint B". By defining similarity probabilities in high dimensions, it becomes easier to apply <strong>mathematical computation</strong>. This is modeled using a Gaussian (normal) distribution, where the variance is adjusted so that the resulting distribution matches the user-defined <strong>perplexity</strong>. Perplexity can be thought of as a measure of the effective number of neighbors considered for each datapoint.
         </p>
         <p>
-            We also define a probabilistic model for the <strong>low-dimensional space</strong>, initializing points either randomly or using <strong>PCA</strong>. Similar models calculate similarity probabilities in low-D, which are initially different from high-D.
+            We also define a probabilistic model for the <strong>low-dimensional space</strong>, where the datapoints on the graph are initialized either randomly or using other methods such as <strong>PCA</strong>. Similiarly, probabilistic models (students t-distribution) calculate similarities between datapoints in low-D, which are initially very different from the similarity scores in high-D.
         </p>
         <p>
             Gradient descent is used to make the high-D and low-D probabilities similar. The formula used is the <strong>Kullback-Leibler Divergence (KL divergence)</strong>, which compares how different the two models are.
@@ -133,6 +133,9 @@
 
     <div class="content">
         <h2>Gradient Descent</h2>
+        <p>
+            Now for what engineers are familiar with. Multivariate calculus and gradient descent, although in a slightly unusual context.
+        </p>
         <p>
             Adjusting points in low-D minimizes <strong>KL divergence</strong>. Calculating the absolute minimum by moving every point is computationally expensive (O(N²)), so <strong>stochastic gradient descent</strong> is used.
         </p>
