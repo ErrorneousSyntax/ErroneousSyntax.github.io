@@ -142,8 +142,19 @@
             Watch this animation to see how this works in real time
         </h2>
         <iframe src="tsne_wine_animation.html" width="100%" height="500" style="border:none;"></iframe>
-
-    
+        <h2>
+            Explaination
+        </h2>
+        <p>
+            Using the wine dataset that classifies 3 types of wine based on 13 features. To find relationships between these 3 types of wine (colored separately), t-SNE reduces the dimensions to two. Each batch of points chosen and moved makes improvements in the KL divergence (loss) albeit at times this loss increases due to the random nature of the sampling process.
+        </p>
+        <p>
+            To intuitively visualise this in gradient descent, we can imagine a ball rolling across a bumpy surface, the lowest point being the global minima 
+        </p>
+        <iframe src="tsne_wine_animation.html" width="100%" height="500" style="border:none;"></iframe>
+        <p>
+            As you can see, the loss increases when it moves towards a global minima, which can be seen in the t-SNE of the wine dataset.
+        </p>
     </div>
 
 </body>
