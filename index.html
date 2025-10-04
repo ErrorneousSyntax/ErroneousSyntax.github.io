@@ -28,33 +28,37 @@
 </head>
 <body>
     <div class="content">
-        <h1>Dimensionality Reduction to identify patterns in the high-dimensionality data</h1>
+        <h1>Applications of Gradient Descent: t-SNE Dimensionality Reduction</h1>
+        <h2>
+            Introduction
+        </h2>
         <p>
-            For those of you in DE1, taking the engineering mathematics module, I will explain how MVC and gradient descent methods you are learning now is applied very heavily even in rigorous recent research in 
-            data science, hopefully fueling your interest in the subject. I will introduce an advanced topic called 
-            dimentionality reduction, which can be vital as Design Engineers to identify patterns and 
-            relationships in data to make accurate, informed decisions.
+           This is an introductory article aimed at engineers who have a curiosity in where engineering maths (such as multivariate calculus) is used in rigorous mathematical research. Particularly for Design Engineers, dimensionality reduction will be crucial to analyse complex data and gather <strong>true hidden insights</strong>.
         </p>
         <p>
-            In data science, we often attempt to find insights from big data, looking for
-            hidden patterns and relationships. However, with datasets containing more than 3 
-            features, one must consider a graph of high-dimensions (such as a graph with 100 Dimensionality).
-            The human mind simply cannot comprehend this, yet visualising this sort
-            of data is becoming increasingly important to uncover hidden insights. 
+            <strong>High-Dimensional data</strong>, which is to say data with many features, is becoming more and more prevelant in today's fields of machine learning, computer vision and finance. These large datasets can provide <strong>invaluable insights</strong>, however as humans we are limited to visualising and identifying patterns in <strong>3 dimensions</strong>. This is where dimensionality reduction comes in.
+        </p>
+        <p>
+            Dimensionality reduction techniques embed (project) datapoints from high dimensional space onto lower dimensional spaces, whilst retaining important relationships and clusters between datapoints.
+        </p>
+        <p>
+            Many <strong>linear</strong> dimensionality reductions exist, the most popular and well known of which is Principal Component Analysis (PCA) which heavily relies on linear algebra to identify key axis (principal components) of variance. This topic is well covered by Devanshi in her report. 
+        </p>
+        <p>
+            However, such techniques become less accurate when the data in question becomes non-linear (i.e. relationships between features cannot be explained by a simple line), and so special techniques such as <strong>t-SNE</strong> become necessary, based on <strong>manifold learning.</strong>
         </p>
     <div class="content">
         <h2>3D Visualization of 15 Clusters</h2>
         <p>
-            To attempt to understand why dimentionality reduction to find clusters is important, 
-            we shall start with a simple 3d graph with artificial clusters. (Note that it is easy
-            to identify clusters in low Dimensionality as seen here, but is impossible beyond 4 dimensions.)
+            First, we will understand why dimentionality reduction is important to find cluster relationships. 
+            We shall start with a simple 3D graph with artificial clusters.
             *Hold and rotate the graph around to see the full data in 3D.
         </p>
         <iframe src="plot_3d.html" width="100%" height="500" style="border:none;"></iframe>
         <p>
             To simulate a very rudimentary dimentionality reduction, imagine the view of this
-            graph on your 2D screen is a representation of the data in lower dimentions.
-            In any angle, there are overlapping clusters, and even more evidently, the "depth" distance
+            graph on your 2D screen as a representation of the data in lower dimentions.
+            In any angle, there are overlapping clusters and crucially, the "depth" distance
             between clusters is not preserved in this manner. 
         </p>
         <p>
@@ -72,12 +76,24 @@
         <h2>2D t-SNE Visualization of 15 Clusters</h2>
         <p>
             A type of manifold learning techniques is called t-distributed Stochastic Neighbor Embedding.
-            t-distributed since it uses the student's t-distribution with 1 degree of freedom (Cauchy distribution)
-            to model the similiarities between data points in the low-dimensional embedding space. Stochastic referring
-            to the nature of the embedding process using stochastic gradient descent to minimise the Kullback-Leiber divergence between
-            the probabilistic models of the "membership strengths" between datapoints in high dimensions and
-            low dimensions. Finally Neighbor embedding refers to the nature of t-SNE which embeds local "neighborhoods"
-            of datapoints very faithfully into lower dimension graphs. We will explain each step in more detail further down this article.
+        </p>
+        <ul>
+          <li>
+            <strong>t-distributed:</strong> Uses the Student's t-distribution with 1 degree of freedom (Cauchy distribution) 
+            to model the similarities between data points in the low-dimensional embedding space.
+          </li>
+          <li>
+            <strong>Stochastic:</strong> Refers to the nature of the embedding process using stochastic gradient descent 
+            to minimize the Kullback-Leibler divergence between the probabilistic models of the "membership strengths" 
+            of data points in high and low dimensions.
+          </li>
+          <li>
+            <strong>Neighbor embedding:</strong> Refers to t-SNE's approach of faithfully embedding local "neighborhoods" 
+            of data points into lower-dimensional graphs.
+          </li>
+        </ul>
+        <p>
+            We will now see how this algorithm works in practise
         </p>
         <iframe src="plot_2d.html" width="100%" height="500" style="border:none;"></iframe>
     </div>
@@ -139,22 +155,21 @@
             Over many iterations, these small adjustments gradually lead to a stable configuration where the low-dimensional distances reflect the high-dimensional neighborhood probabilities as faithfully as possible. The stochastic nature of the process allows t-SNE to handle large datasets efficiently while still uncovering the underlying manifold structure in a visually meaningful way.
         </p>
         <h2>
-            Watch this animation to see how this works per ~100 iterations
+            Watch this animation to see how this works in real time
         </h2>
         <iframe src="tsne_wine_animation.html" width="100%" height="500" style="border:none;"></iframe>
         <h2>
             Explaination
         </h2>
         <p>
-            Here we use the wine dataset that classifies 3 types of wine based on 13 features (dimensions). To find relationships between these 3 types of wine (colored separately), t-SNE reduces the dimensions to two. Each batch of points chosen and moved makes improvements in the KL divergence (loss) albeit at times this loss increases due to the random nature of the sampling process.
+            Using the wine dataset that classifies 3 types of wine based on 13 features. To find relationships between these 3 types of wine (colored separately), t-SNE reduces the dimensions to two. Each batch of points chosen and moved makes improvements in the KL divergence (loss) albeit at times this loss increases due to the random nature of the sampling process.
         </p>
         <p>
-            To intuitively visualise this in gradient descent, we can imagine a ball rolling across a 2D bumpy surface, the lowest point being the global minima.
+            To intuitively visualise this in gradient descent, we can imagine a ball rolling across a bumpy surface, the lowest point being the global minima 
         </p>
-        <iframe src="sgd_momentum_landscape.html" width="100%" height="500" style="border:none;"></iframe>
+        <iframe src="tsne_wine_animation.html" width="100%" height="500" style="border:none;"></iframe>
         <p>
-            As you can see, the loss increases temporarily when it moves towards a global minima, which can be seen in the t-SNE of the wine dataset.
-            To apply this to the t-SNE KL divergence minimization, all we must do is imagine this loss landscape where there are many more axis (dimensions) to represent the features of the dataset.
+            As you can see, the loss increases when it moves towards a global minima, which can be seen in the t-SNE of the wine dataset.
         </p>
     </div>
 
