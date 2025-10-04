@@ -121,7 +121,7 @@
     <div class="content">
         <h2>The Mathematics of <strong>t-SNE</strong></h2>
         <p>
-            <strong>t-SNE</strong> uses pairwise similarities as <strong>probabilistic models</strong> to represent "how likely a datapoint A is to choose datapoint B". By defining similarity probabilities in high dimensions, it becomes easier to apply <strong>mathematical computation</strong>. This is modeled using a Gaussian (normal) distribution, where the variance is adjusted so that the resulting distribution matches the user-defined <strong>perplexity</strong>. Perplexity can be thought of as a measure of the effective number of neighbors considered for each datapoint.
+            <strong>t-SNE</strong> uses pairwise similarities as <strong>probabilistic models</strong> to represent "how likely a datapoint A is to choose datapoint B". By defining similarity probabilities in high dimensions, it becomes easier to apply <strong>mathematical computation</strong>. This is modeled using a Gaussian (normal) distribution, where the variance is adjusted for each datapoints model so that the resulting distribution matches the user-defined <strong>perplexity</strong>. Perplexity can be thought of as a measure of the effective number of neighbors considered for each datapoint.
         </p>
         <p>
             We also define a probabilistic model for the <strong>low-dimensional space</strong>, where the datapoints on the graph are initialized either randomly or using other methods such as <strong>PCA</strong>. Similiarly, probabilistic models (students t-distribution) calculate similarities between datapoints in low-D, which are initially very different from the similarity scores in high-D.
